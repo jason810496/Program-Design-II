@@ -1,2 +1,2 @@
 all:
-	g++ main.cpp -o hw3
+	g++ main.cpp -o hw3 -w
