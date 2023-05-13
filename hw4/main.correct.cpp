@@ -115,12 +115,6 @@ long shiftDays(long origDate, int n) {
     return shiftedDate;
 }
 
-struct cmp {
-    bool operator()(const pair<int, pair<int, long >> & p1, const pair<int, pair<int, long >> & p2) const {
-        return (p1.first == p2.first ? p1.second.first < p2.second.first : p1.first > p2.first);
-    }
-};
-
 int main(int argc, char **argv)
 {
     // employee_id, #overloading_days, #sign_forget_days
@@ -170,7 +164,7 @@ int main(int argc, char **argv)
     }
 
     sort(sorted.begin(), sorted.end(), [&](const employee &a, const employee &b){ 
-        return (a.id == b.id ? a.timestamp < b.timestamp : a.id > b.id);
+        return (a.id == b.id ? a.timestamp < b.timestamp : a.id < b.id);
     });
 
     // for(int i = 0; i < sorted.size(); i++){
@@ -185,10 +179,9 @@ int main(int argc, char **argv)
     long  curStartDate = startDate;
 
     // priority_queue<pair<int, pair<int, long >>, vector<pair<int, pair<int, long >>>, greater<pair<int, pair<int, long >>>> pq;
-    priority_queue<pair<int, pair<int, long >>, vector<pair<int, pair<int, long >>>, cmp > pq;
-
+    
     // day , id , start date
-    // vector<pair<int, pair<int, long > > > ans;
+    vector<pair<int, pair<int, long > > > ans;
     for (const employee &row : sorted)
     {
 
@@ -200,12 +193,12 @@ int main(int argc, char **argv)
                 continueWork = curContinueWork;
                 startDate = curStartDate;
             }
-            // ans.push_back(make_pair(continueWork, make_pair(lastId, startDate)));
-            pq.push(make_pair(continueWork, make_pair(lastId, startDate)));
-            if (pq.size() > 3)
-            {
-                pq.pop();
-            }
+            ans.push_back(make_pair(continueWork, make_pair(lastId, startDate)));
+            // pq.push(make_pair(continueWork, make_pair(lastId, startDate)));
+            // if (pq.size() > 3)
+            // {
+            //     pq.pop();
+            // }
             curContinueWork = 1;
             continueWork = 1;
         }
@@ -233,27 +226,27 @@ int main(int argc, char **argv)
         }
         lastDate = date;
     }
-    pq.push(make_pair(continueWork, make_pair(lastId, startDate)));
-    if (pq.size() > 3)
-    {
-        pq.pop();
-    }
-    // ans.push_back(make_pair(continueWork, make_pair(lastId, startDate)));
+    // pq.push(make_pair(continueWork, make_pair(lastId, startDate)));
+    // if (pq.size() > 3)
+    // {
+    //     pq.pop();
+    // }
+    ans.push_back(make_pair(continueWork, make_pair(lastId, startDate)));
 
 
-    pair<int, pair<int, long >> ans[3];
-    int i = 0;
-    while (pq.size())
-    {
-        ans[i++] = pq.top();
-        pq.pop();
-    }
+    // pair<int, pair<int, long >> ans[3];
+    // int i = 2;
+    // while (pq.size())
+    // {
+    //     ans[i--] = pq.top();
+    //     pq.pop();
+    // }
 
-    // sort(begin(ans), end(ans), [&](pair<int, pair<int, long >> &a,pair<int, pair<int, long >> &b){ 
-    //     return (a.first == b.first ? a.second.first < b.second.first : a.first > b.first);
-    // });
+    sort(begin(ans), end(ans), [&](pair<int, pair<int, long >> &a,pair<int, pair<int, long >> &b){ 
+        return (a.first == b.first ? a.second.first < b.second.first : a.first > b.first);
+    });
 
-    for (i=0;i<3;i++)
+    for (int i=0;i<3;i++)
     {
         const pair<int, pair<int, long >> cur = ans[i];
         cout << cur.second.first << "," << cur.first << "," << cur.second.second << "," << shiftDays(cur.second.second,cur.first -1) << "\n";
