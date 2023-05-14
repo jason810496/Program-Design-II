@@ -6,7 +6,7 @@ OBJDIR = obj
 BINDIR = bin
 SOURCES = $(wildcard $(SRCDIR)/*.cpp)
 OBJECTS = $(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
-EXECUTABLE = main
+EXECUTABLE = hw5
 
 all: main
 	$(CXX) $(CXXFLAGS) obj/Constant.o obj/BaseEngine.o obj/HashEngine.o obj/Parser.o obj/RbTreeEngine.o obj/TrieEngine.o obj/SearchEngine.o obj/main.o -o $(EXECUTABLE)
