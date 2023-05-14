@@ -12,7 +12,7 @@ class BaseEngine{
 		BaseEngine();
 		~BaseEngine();
 		virtual void insert(const int & ithLine,const std::string & word);
-		virtual bool search(const std::vector<std::string> & search , std::vector<std::string> & result);
+		virtual bool search(const std::vector<std::string> & search , std::vector<int> & result);
 };
 
 #endif

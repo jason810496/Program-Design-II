@@ -7,6 +7,7 @@
 #include <sstream>
 #include <vector>
 #include <iostream>
+#include "BaseEngine.h"
 
 class Parser{
 	private:
@@ -21,6 +22,8 @@ class Parser{
 		Parser(const int & reserverdSize);
 		~Parser();
 		void readCorpus(const std::string & filename);
+		void readCorpus(const std::string & filename, BaseEngine* engine);
+		void answerQuery(const std::string & filename, BaseEngine* engine);
 		const std::vector<std::string> & parsed();
 		const int & size();
 };

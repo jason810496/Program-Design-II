@@ -15,6 +15,8 @@ class SearchEngine{
 	public:
 		SearchEngine(const std::string & engineType);
 		~SearchEngine();
+		void readCorpus(const std::string & filename);
+		void answerQuery(const std::string & filename);
 		void insert(const int & ithLine,const std::string & word);
 		bool search(const std::vector<std::string> & search , std::vector<std::string> & result);
 };

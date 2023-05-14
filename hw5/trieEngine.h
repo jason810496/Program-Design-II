@@ -16,7 +16,6 @@ class Trie{
 			~Node();
 		};
 		Node* root;
-		void printNode(Node* node);
 	public:
 		Trie();
 		~Trie();
@@ -26,12 +25,13 @@ class Trie{
 
 class TrieEngine : public BaseEngine{
 	private:
-		std::vector<Trie> TrieList;
+		std::vector<Trie> db;
 	public:
 		TrieEngine();
+		TrieEngine(const int & size);
 		~TrieEngine();
         void insert(const int & ithLine,const std::string & word);
-		bool search(const std::vector<std::string> & search , std::vector<std::string> & result);
+		bool search(const std::vector<std::string> & search , std::vector<int> & result);
 };
 
 #endif

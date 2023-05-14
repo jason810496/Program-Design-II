@@ -11,7 +11,6 @@ class RbTreeEngine : public BaseEngine{
 		std::multimap<std::string,int> db;
 	public:
 		RbTreeEngine();
-		RbTreeEngine(int reserverdSize);
 		~RbTreeEngine();
 		void insert(const int & ithLine,const std::string & word);
 		bool search(const std::vector<std::string> & search , std::vector<std::string> & result);
