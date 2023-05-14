@@ -1,5 +1,5 @@
-#define HASH_ENGINE_INCLUDED
 #ifdef HASH_ENGINE_INCLUDED
+#define HASH_ENGINE_INCLUDED
 
 #include "BaseEngine.h"
 #include <vector>

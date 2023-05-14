@@ -1,5 +1,5 @@
-#define SEARCH_ENGINE_INCLUDED
 #ifdef SEARCH_ENGINE_INCLUDED
+#define SEARCH_ENGINE_INCLUDED
 
 #include <string>
 #include <vector>

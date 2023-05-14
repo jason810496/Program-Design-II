@@ -1,5 +1,5 @@
-#define RBTREE_ENGINE_INCLUDED
 #ifdef RBTREE_ENGINE_INCLUDED
+#define RBTREE_ENGINE_INCLUDED
 
 #include <map>
 #include <string>

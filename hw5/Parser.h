@@ -1,6 +1,5 @@
-#define PARSER_INCLUDED
-
 #ifdef PARSER_INCLUDED
+#define PARSER_INCLUDED
 
 #include <string>
 #include <fstream>

@@ -1,6 +1,5 @@
-#define TRIE_ENGINE_INCLUDED
-
 #ifdef TRIE_ENGINE_INCLUDED
+#define TRIE_ENGINE_INCLUDED
 
 #include <string>
 #include <vector>
