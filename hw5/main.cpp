@@ -2,17 +2,14 @@
 #include <fstream>
 #include <sstream>
 #include <utility>
-#include <algorithm>
-#include <string>
-#include <vector>
-
-
+#include "constant.h"
 #include "Parser.h"
-#include "TrieEngine.h"
+#include "SearchEngine.h"
 
 
 int main(int argc, char** argv){
-	Parser parser;
-	parser.readCorpus(argv[1]);
+	SearchEngine search_engine(TRIE);
+	search_engine.readCorpus(argv[1]);
+	search_engine.answerQuery(argv[2]);
 	return 0;
 }
