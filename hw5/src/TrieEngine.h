@@ -1,9 +1,10 @@
 #ifdef TRIE_ENGINE_INCLUDED
 #define TRIE_ENGINE_INCLUDED
 
+#include "BaseEngine.h"
 #include <string>
 #include <vector>
-#include "BaseEngine.h"
+
 
 class Trie{
 	private:

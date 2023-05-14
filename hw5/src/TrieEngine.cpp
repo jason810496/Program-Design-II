@@ -1,4 +1,6 @@
 #include "TrieEngine.h"
+#include <string>
+#include <vector>
 
 //// Trie Implementation ////
 
