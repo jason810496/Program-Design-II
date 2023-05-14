@@ -11,14 +11,22 @@ void RbTreeEngine::insert(const int & ithLine,const std::string & word){
 }
 
 bool RbTreeEngine::search(const std::vector<std::string> & search , std::vector<int> & result){
-    std::multimap<std::string,int>::iterator it;
-    for(int i=0;i<search.size();i++){
-        std::pair<std::multimap<std::string,int>::iterator,std::multimap<std::string,int>::iterator> ret;
-        ret = db.equal_range(search[i]);
-        for(it=ret.first;it!=ret.second;it++){
-            result.push_back(it->second);
+    int k = search.size();
+    std::vector<int> bucket(lineCount+1);
+    for(const auto & word : search){
+        auto range = db.equal_range(word);
+        for(auto it = range.first; it != range.second; ++it){
+            bucket[it->second]++;
         }
     }
+
+
+    for(int i=1;i<=lineCount;i++){
+        if(bucket[i] == k){
+            result.push_back(i);
+        }
+    }
+    
     
     if(result.empty() ){
         result.push_back(-1);

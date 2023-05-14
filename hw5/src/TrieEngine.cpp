@@ -1,8 +1,5 @@
 #include "TrieEngine.h"
 
-#include <string>
-#include <vector>
-
 //// Trie Implementation ////
 
 Trie::Node::Node(char data, bool isWord){
@@ -77,26 +74,37 @@ TrieEngine::~TrieEngine(){
 }
 
 void TrieEngine::insert(const int & ithLine,const std::string & word){
-	if( ithLine == db.size() ){
+	if( ithLine >= db.size() ){
 		db.resize(ithLine+10);
 	}
 	db[ithLine].insert(word);
 }
 
 bool TrieEngine::search(const std::vector<std::string> & search , std::vector<int> & result){
-	for(int i = 0 ; i < db.size() ; i++){
-		for(const auto & word : search){
+	int k = search.size();
+    std::vector<int> bucket(lineCount+1);
+
+    for(const auto & word : search){
+		for(int i = 0 ; i < db.size() ; ++i){
 			if( db[i].search(word) ){
-				result.push_back(i);
+				bucket[i]++;
 			}
 		}
 	}
+
+
+    for(int i=1;i<=lineCount;i++){
+        if(bucket[i] == k){
+            result.push_back(i);
+        }
+    }
 
 	if( result.empty() ){
 		result.push_back(-1);
 		return false;
 	}
 
+	sort(result.begin(),result.end());
 	return true;
 }
 

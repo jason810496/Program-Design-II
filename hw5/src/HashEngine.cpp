@@ -1,10 +1,5 @@
 #include "HashEngine.h"
 
-#include <string>
-#include <vector>
-#include <unordered_map>
-#include <utility>
-
 HashEngine::HashEngine(){
 }
 
@@ -16,12 +11,18 @@ void HashEngine::insert(const int & ithLine,const std::string & word){
 }
 
 bool HashEngine::search(const std::vector<std::string> & search , std::vector<int> & result){
-    std::unordered_multimap<std::string,int>::iterator it;
-    for(int i=0;i<search.size();i++){
-        std::pair<std::unordered_multimap<std::string,int>::iterator,std::unordered_multimap<std::string,int>::iterator> ret;
-        ret = db.equal_range(search[i]);
-        for(it=ret.first;it!=ret.second;it++){
-            result.push_back(it->second);
+    int k = search.size();
+    std::vector<int> bucket(lineCount+1);
+    for(const auto & word : search){
+        auto range = db.equal_range(word);
+        for(auto it = range.first; it != range.second; ++it){
+            bucket[it->second]++;
+        }
+    }
+
+    for(int i=1;i<=lineCount;i++){
+        if(bucket[i] == k){
+            result.push_back(i);
         }
     }
     
@@ -30,6 +31,7 @@ bool HashEngine::search(const std::vector<std::string> & search , std::vector<in
         return false;
     }
 
+    sort(result.begin(),result.end());
     return true;
 }
 

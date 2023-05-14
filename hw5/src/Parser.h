@@ -19,6 +19,7 @@ class Parser{
 	public:
 		Parser();
 		~Parser();
+		std::string trim(const std::string & str);
 		void readCorpus(const std::string & filename);
 		void readCorpus(const std::string & filename, BaseEngine* engine);
 		void answerQuery(const std::string & filename, BaseEngine* engine);

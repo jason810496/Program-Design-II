@@ -3,9 +3,11 @@
 
 #include "BaseEngine.h"
 
-#include <unordered_map>
-#include <vector>
 #include <string>
+#include <vector>
+#include <unordered_map>
+#include <utility>
+#include <algorithm>
 
 
 class HashEngine : public BaseEngine {

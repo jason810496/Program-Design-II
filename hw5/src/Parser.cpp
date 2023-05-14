@@ -4,6 +4,20 @@ Parser::Parser(){}
 
 Parser::~Parser(){}
 
+std::string Parser::trim(const std::string & str){
+	std::string result = "";
+	for(const char & c : str){
+		if( 'A' <= c && c <= 'Z' ){
+			result += c - 'A' + 'a';
+		}
+		if( c < 'a' || 'z' < c ){
+			continue;
+		}
+		result += c;
+	}
+	return result;
+}
+
 void Parser::readCorpus(const std::string & filename){
 	
 
@@ -25,7 +39,7 @@ void Parser::readCorpus(const std::string & filename){
 
 			std::vector<std::string> result;
 			while(pars >> line && line.size() > 0){
-				result.push_back(line);
+				result.push_back( trim(line) );
 			}
 			// parsed result 
 			for(const auto & word : result){
@@ -60,7 +74,7 @@ void Parser::readCorpus(const std::string & filename, BaseEngine* engine){
 
 			pars.str(line);
 			while(pars >> line && line.size() > 0){
-				engine->insert(lineCount,line);
+				engine->insert(lineCount, trim(line) );
 			}
 
 			lineCount++; // next line
@@ -68,6 +82,8 @@ void Parser::readCorpus(const std::string & filename, BaseEngine* engine){
 	}
 	ifs.close();
 	ifs.clear();
+
+	engine->setLineCount(lineCount);
 }
 
 void Parser::answerQuery(const std::string & filename, BaseEngine* engine){
@@ -82,26 +98,20 @@ void Parser::answerQuery(const std::string & filename, BaseEngine* engine){
 		std::string line;
 		while(getline(ifs, line)){
 			// new line parsed
-			wordCount = 0; // init word count 
-			raw.clear();
 			pars.clear(); // init stream
-
-			raw.str(line);
-			raw>>quoted(line); // remove `id,`
-			raw>>quoted(line); // get quoted std::string
-
 			pars.str(line);
 			
 			while(pars >> line && line.size() > 0){
-				query.push_back(line);
+				query.push_back( trim(line) );
 			}
+
+			// output
 			engine->search(query,answer);
 			for(const int & id : answer){
 				std::cout<<id<<' ';
 			}
 			std::cout<<'\n';
 
-			lineCount++; // next line
 			query.clear();
 			answer.clear();
 		}
