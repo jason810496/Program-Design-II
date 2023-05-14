@@ -1,10 +1,19 @@
-#ifdef SEARCH_ENGINE_INCLUDED
-#define SEARCH_ENGINE_INCLUDED
+
+#ifndef _SEARCHENGINE_H_
+#define _SEARCHENGINE_H_
 
 #include <string>
 #include <vector>
-#include "BaseEngine.h"
+
+#include "Constant.h"
 #include "Parser.h"
+
+#include "BaseEngine.h"
+
+#include "TrieEngine.h"
+#include "HashEngine.h"
+#include "RbTreeEngine.h"
+
 
 class SearchEngine{
 	private:
@@ -18,7 +27,7 @@ class SearchEngine{
 		void readCorpus(const std::string & filename);
 		void answerQuery(const std::string & filename);
 		void insert(const int & ithLine,const std::string & word);
-		bool search(const std::vector<std::string> & search , std::vector<std::string> & result);
+		bool search(const std::vector<std::string> & search , std::vector<int> & result);
 };
 
 #endif

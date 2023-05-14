@@ -1,6 +1,7 @@
-#define BASE_ENGINE_INCLUDED
 
-#ifdef BASE_ENGINE_INCLUDED
+#ifndef _BASE_ENGINE_H_
+#define _BASE_ENGINE_H_
+
 
 #include <string>
 #include <vector>
@@ -9,10 +10,10 @@ class BaseEngine{
 	protected:
 		int lineCount;
 	public:
-		BaseEngine();
-		~BaseEngine();
-		virtual void insert(const int & ithLine,const std::string & word);
-		virtual bool search(const std::vector<std::string> & search , std::vector<int> & result);
+		BaseEngine() = default;
+		~BaseEngine() = default;
+		virtual void insert(const int & ithLine,const std::string & word){};
+		virtual bool search(const std::vector<std::string> & search , std::vector<int> & result){};
 };
 
 #endif

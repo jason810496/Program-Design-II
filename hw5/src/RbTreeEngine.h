@@ -1,9 +1,10 @@
-#ifdef RBTREE_ENGINE_INCLUDED
-#define RBTREE_ENGINE_INCLUDED
+#ifndef _RBTREE_ENGINE_H_
+#define _RBTREE_ENGINE_H_
 
 #include <map>
 #include <string>
 #include <vector>
+
 #include "BaseEngine.h"
 
 class RbTreeEngine : public BaseEngine{
@@ -13,7 +14,7 @@ class RbTreeEngine : public BaseEngine{
 		RbTreeEngine();
 		~RbTreeEngine();
 		void insert(const int & ithLine,const std::string & word);
-		bool search(const std::vector<std::string> & search , std::vector<std::string> & result);
+		bool search(const std::vector<std::string> & search , std::vector<int> & result);
 };
 
 #endif

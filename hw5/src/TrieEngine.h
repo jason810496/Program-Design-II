@@ -1,10 +1,10 @@
-#ifdef TRIE_ENGINE_INCLUDED
-#define TRIE_ENGINE_INCLUDED
+#ifndef _TRIE_ENGINE_H_
+#define _TRIE_ENGINE_H_
 
-#include "BaseEngine.h"
 #include <string>
 #include <vector>
 
+#include "BaseEngine.h"
 
 class Trie{
 	private:

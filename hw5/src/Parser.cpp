@@ -2,10 +2,6 @@
 
 Parser::Parser(){}
 
-Parser::Parser(const int & reserverdSize){
-	result.reserve(reserverdSize);
-}
-
 Parser::~Parser(){}
 
 void Parser::readCorpus(const std::string & filename){
@@ -26,6 +22,8 @@ void Parser::readCorpus(const std::string & filename){
 			raw>>quoted(line); // get quoted std::string
 
 			pars.str(line);
+
+			std::vector<std::string> result;
 			while(pars >> line && line.size() > 0){
 				result.push_back(line);
 			}
@@ -66,7 +64,6 @@ void Parser::readCorpus(const std::string & filename, BaseEngine* engine){
 			}
 
 			lineCount++; // next line
-			result.clear();
 		}
 	}
 	ifs.close();

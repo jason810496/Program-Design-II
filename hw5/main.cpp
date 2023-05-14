@@ -2,8 +2,8 @@
 #include <fstream>
 #include <sstream>
 #include <utility>
-#include "Constant.h"
-#include "SearchEngine.h"
+#include "src/Constant.h"
+#include "src/SearchEngine.h"
 
 
 int main(int argc, char** argv){

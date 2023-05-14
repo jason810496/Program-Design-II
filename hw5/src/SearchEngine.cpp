@@ -1,7 +1,3 @@
-#include "Constant.h"
-#include "TrieEngine.h"
-#include "HashEngine.h"
-#include "RbTreeEngine.h"
 #include "SearchEngine.h"
 
 SearchEngine::SearchEngine(const std::string & engineType){
@@ -31,6 +27,6 @@ void SearchEngine::insert(const int & ithLine,const std::string & word){
 	engine->insert(ithLine,word);
 }
 
-bool SearchEngine::search(const std::vector<std::string> & search , std::vector<std::string> & result){
+bool SearchEngine::search(const std::vector<std::string> & search , std::vector<int> & result){
 	return engine->search(search,result);
 }
