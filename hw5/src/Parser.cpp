@@ -32,8 +32,8 @@ void Parser::readCorpus(const std::string & filename){
 			pars.clear(); // init stream
 
 			raw.str(line);
-			raw>>quoted(line); // remove `id,`
-			raw>>quoted(line); // get quoted std::string
+			raw>>std::quoted(line); // remove `id,`
+			raw>>std::quoted(line); // get std::quoted std::string
 
 			pars.str(line);
 
@@ -69,8 +69,8 @@ void Parser::readCorpus(const std::string & filename, BaseEngine* engine){
 			pars.clear(); // init stream
 
 			raw.str(line);
-			raw>>quoted(line); // remove `id,`
-			raw>>quoted(line); // get quoted std::string
+			raw>>std::quoted(line); // remove `id,`
+			raw>>std::quoted(line); // get std::quoted std::string
 
 			pars.str(line);
 			while(pars >> line && line.size() > 0){
