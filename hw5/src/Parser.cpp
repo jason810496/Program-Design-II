@@ -120,14 +120,10 @@ void Parser::answerQuery(const std::string & filename, BaseEngine* engine){
 			// new line parsed
 			pars.clear(); // init stream
 			pars.str(line);
-			
-			// std::cout<<"query: ";
 
 			while(pars >> line && line.size() > 0){
 				query.push_back( trim(line) );
-				// std::cout<<trim(line)<<' ';
 			}
-			// std::cout<<std::endl;
 
 			// output
 			engine->search(query,answer);
