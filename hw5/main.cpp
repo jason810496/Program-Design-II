@@ -7,7 +7,7 @@
 
 
 int main(int argc, char** argv){
-	SearchEngine search_engine(HASH);
+	SearchEngine search_engine(RBTREE);
 	search_engine.readCorpus(argv[1]);
 	search_engine.answerQuery(argv[2]);
 	return 0;

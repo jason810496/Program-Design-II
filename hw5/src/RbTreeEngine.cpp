@@ -12,11 +12,16 @@ void RbTreeEngine::insert(const int & id,const std::string & word){
 
 bool RbTreeEngine::search(const std::vector<std::string> & search , std::vector<int> & result){
     int k = search.size();
-    std::unordered_map<int,int> bucket;
+    std::map<int,int> bucket;
     for(const auto & word : search){
         auto range = db.equal_range(word);
+        int lastId = -1;
         for(auto it = range.first; it != range.second; ++it){
+            if( it->second == lastId ){
+                continue;
+            }
             bucket[it->second]++;
+            lastId = it->second;
         }
     }
 

@@ -15,8 +15,13 @@ bool HashEngine::search(const std::vector<std::string> & search , std::vector<in
     std::unordered_map<int,int> bucket;
     for(const auto & word : search){
         auto range = db.equal_range(word);
+        int lastId = -1;
         for(auto it = range.first; it != range.second; ++it){
+            if( it->second == lastId ){
+                continue;
+            }
             bucket[it->second]++;
+            lastId = it->second;
         }
     }
 
