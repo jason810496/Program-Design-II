@@ -9,7 +9,7 @@ OBJECTS = $(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 EXECUTABLE = hw5
 
 all: main
-	$(CXX) $(CXXFLAGS) obj/Constant.o obj/BaseEngine.o obj/HashEngine.o obj/Parser.o obj/RbTreeEngine.o obj/TrieEngine.o obj/SearchEngine.o obj/main.o -o $(EXECUTABLE)
+	$(CXX) $(CXXFLAGS) obj/HashEngine.o obj/Parser.o obj/RbTreeEngine.o obj/TrieEngine.o obj/SearchEngine.o obj/main.o -o $(EXECUTABLE)
 
 # all: main
 # 	$(CXX) $(CXXFLAGS) obj/Constant.o obj/BaseEngine.o obj/HashEngine.o obj/Parser.o obj/RbTreeEngine.o obj/TrieEngine.o obj/SearchEngine.o obj/main.o -o $(EXECUTABLE)
