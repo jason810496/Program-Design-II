@@ -69,15 +69,14 @@ void Parser::readCorpus(const std::string & filename, BaseEngine* engine){
 			pars.clear(); // init stream
 
 			raw.str(line);
-			raw>>std::quoted(line); // remove `id,`
+			raw>>std::quoted(line); // cut `id,`
+			int id = strtoll(line.c_str(),NULL,10);
 			raw>>std::quoted(line); // get std::quoted std::string
 
 			pars.str(line);
 			while(pars >> line && line.size() > 0){
-				engine->insert(lineCount, trim(line) );
+				engine->insert(id, trim(line) );
 			}
-
-			lineCount++; // next line
 		}
 	}
 	ifs.close();

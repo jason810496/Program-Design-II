@@ -6,8 +6,8 @@ RbTreeEngine::RbTreeEngine(){
 RbTreeEngine::~RbTreeEngine(){
 }
 
-void RbTreeEngine::insert(const int & ithLine,const std::string & word){
-    db.insert(std::pair<std::string,int>(word,ithLine));
+void RbTreeEngine::insert(const int & id,const std::string & word){
+    db.insert(std::pair<std::string,int>(word,id));
 }
 
 bool RbTreeEngine::search(const std::vector<std::string> & search , std::vector<int> & result){
@@ -21,9 +21,9 @@ bool RbTreeEngine::search(const std::vector<std::string> & search , std::vector<
     }
 
 
-    for(int i=1;i<=lineCount;i++){
-        if(bucket[i] == k){
-            result.push_back(i);
+    for(const auto & p : bucket){
+        if(p.second == k){
+            result.push_back(p.first);
         }
     }
     

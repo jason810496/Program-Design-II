@@ -20,9 +20,9 @@ bool HashEngine::search(const std::vector<std::string> & search , std::vector<in
         }
     }
 
-    for(int i=1;i<=lineCount;i++){
-        if(bucket[i] == k){
-            result.push_back(i);
+    for(const auto & p : bucket){
+        if(p.second == k){
+            result.push_back(p.first);
         }
     }
     
