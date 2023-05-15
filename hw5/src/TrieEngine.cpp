@@ -73,11 +73,11 @@ TrieEngine::TrieEngine(const int & size){
 TrieEngine::~TrieEngine(){
 }
 
-void TrieEngine::insert(const int & ithLine,const std::string & word){
-	if( ithLine >= db.size() ){
-		db.resize(ithLine+10);
+void TrieEngine::insert(const int & id,const std::string & word){
+	if( id >= db.size() ){
+		db.resize(id+10);
 	}
-	db[ithLine].insert(word);
+	db[id].insert(word);
 }
 
 bool TrieEngine::search(const std::vector<std::string> & search , std::vector<int> & result){

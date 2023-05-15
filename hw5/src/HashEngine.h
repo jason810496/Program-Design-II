@@ -16,7 +16,7 @@ class HashEngine : public BaseEngine {
 	public:
 		HashEngine();
 		~HashEngine();
-		void insert(const int & ithLine,const std::string & word);
+		void insert(const int & id,const std::string & word);
 		bool search(const std::vector<std::string> & search , std::vector<int> & result);
 };
 

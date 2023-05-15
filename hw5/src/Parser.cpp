@@ -26,29 +26,41 @@ void Parser::readCorpus(const std::string & filename){
 		lineCount = 1;	// init line count
 		std::string line;
 		while(getline(ifs, line)){
-			// new line parsed
-			wordCount = 0; // init word count 
-			raw.clear();
-			pars.clear(); // init stream
 
-			raw.str(line);
-			raw>>std::quoted(line); // remove `id,`
-			raw>>std::quoted(line); // get std::quoted std::string
-
-			pars.str(line);
-
-			std::vector<std::string> result;
-			while(pars >> line && line.size() > 0){
-				result.push_back( trim(line) );
+			int idx = 0;
+			while(line[idx] != ','){
+				idx++;
 			}
-			// parsed result 
-			for(const auto & word : result){
-				std::cout<<word<<std::endl;
-				wordCount++;
+			int id = strtoll(line.substr(0,idx).c_str(),NULL,10);
+			
+			while(line[idx] != '\"'){
+				idx++;
 			}
+			
+			std::string tmp = "";
+			char c;
+			while( idx < line.size() ){
+				c = line[idx];
+				if( c == ' '){
+					if(tmp.size() > 0){
+						std::cout<<tmp<<' ';
+						tmp = "";
+					}
+					idx++;
+					continue;
+				}
+				if( 'A' <= c && c <= 'Z' ){
+					tmp += c - 'A' + 'a';
+				}
+				if( c < 'a' || 'z' < c ){
+					idx++;
+					continue;
+				}
+				tmp += c;
+				idx++;
+			}
+			std::cout<<tmp<<' ';
 
-			lineCount++; // next line
-			result.clear();
 		}
 	}
 	ifs.close();

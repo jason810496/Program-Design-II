@@ -6,8 +6,8 @@ HashEngine::HashEngine(){
 HashEngine::~HashEngine(){
 }
 
-void HashEngine::insert(const int & ithLine,const std::string & word){
-    db.insert(std::pair<std::string,int>(word,ithLine));
+void HashEngine::insert(const int & id,const std::string & word){
+    db.insert(std::pair<std::string,int>(word,id));
 }
 
 bool HashEngine::search(const std::vector<std::string> & search , std::vector<int> & result){

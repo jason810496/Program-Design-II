@@ -12,7 +12,6 @@
 
 class Parser{
 	private:
-        std::stringstream raw;
         std::stringstream pars;
         std::fstream ifs;
 		int wordCount;

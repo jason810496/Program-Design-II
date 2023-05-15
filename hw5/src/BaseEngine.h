@@ -13,7 +13,7 @@ class BaseEngine{
 		BaseEngine() = default;
 		~BaseEngine() = default;
 		void setLineCount(const int & count){ lineCount = count; };
-		virtual void insert(const int & ithLine,const std::string & word){};
+		virtual void insert(const int & id,const std::string & word){};
 		virtual bool search(const std::vector<std::string> & search , std::vector<int> & result){};
 };
 

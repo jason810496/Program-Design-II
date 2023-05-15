@@ -23,8 +23,8 @@ void SearchEngine::answerQuery(const std::string & filename){
 	parser.answerQuery(filename,engine);
 }
 
-void SearchEngine::insert(const int & ithLine,const std::string & word){
-	engine->insert(ithLine,word);
+void SearchEngine::insert(const int & id,const std::string & word){
+	engine->insert(id,word);
 }
 
 bool SearchEngine::search(const std::vector<std::string> & search , std::vector<int> & result){
