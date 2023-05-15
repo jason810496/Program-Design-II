@@ -12,7 +12,7 @@ void HashEngine::insert(const int & ithLine,const std::string & word){
 
 bool HashEngine::search(const std::vector<std::string> & search , std::vector<int> & result){
     int k = search.size();
-    std::vector<int> bucket(lineCount+1);
+    std::unordered_map<int,int> bucket;
     for(const auto & word : search){
         auto range = db.equal_range(word);
         for(auto it = range.first; it != range.second; ++it){

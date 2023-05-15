@@ -82,7 +82,7 @@ void TrieEngine::insert(const int & ithLine,const std::string & word){
 
 bool TrieEngine::search(const std::vector<std::string> & search , std::vector<int> & result){
 	int k = search.size();
-    std::vector<int> bucket(lineCount+1);
+    std::unordered_map<int,int> bucket;
 
     for(const auto & word : search){
 		for(int i = 0 ; i < db.size() ; ++i){
