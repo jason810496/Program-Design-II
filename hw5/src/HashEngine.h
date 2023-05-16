@@ -6,8 +6,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
-#include <utility>
-#include <algorithm>
+#include <map>
 
 
 class HashEngine : public BaseEngine {

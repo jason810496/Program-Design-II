@@ -12,7 +12,7 @@ void HashEngine::insert(const int & id,const std::string & word){
 
 bool HashEngine::search(const std::vector<std::string> & search , std::vector<int> & result){
     int k = search.size();
-    std::unordered_map<int,int> bucket;
+    std::map<int,int> bucket;
     for(const auto & word : search){
         auto range = db.equal_range(word);
         int lastId = -1;
@@ -36,7 +36,6 @@ bool HashEngine::search(const std::vector<std::string> & search , std::vector<in
         return false;
     }
 
-    sort(result.begin(),result.end());
     return true;
 }
 

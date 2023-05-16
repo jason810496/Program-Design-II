@@ -38,6 +38,5 @@ bool RbTreeEngine::search(const std::vector<std::string> & search , std::vector<
         return false;
     }
 
-    sort(result.begin(),result.end());
     return true;
 }
