@@ -2,10 +2,15 @@
 
 //// Trie Implementation ////
 
-Trie::Node::Node(char data, bool isWord){
+Trie::Node::Node(char data, const int id){
 	this->data = data;
-	this->isWord = isWord;
+	this->isWord.insert(id);
 }
+
+Trie::Node::Node(char data){
+	this->data = data;
+}
+
 Trie::Node::~Node(){
 	for(auto & child : children){
 		delete child;
@@ -13,14 +18,14 @@ Trie::Node::~Node(){
 }
 
 Trie::Trie(){
-	root = new Node('\0', false);
+	root = new Node('\0');
 }
 
 Trie::~Trie(){
 	delete root;
 }
 
-void Trie::insert(const std::string & word){
+void Trie::insert(const int &id,const std::string & word){
 	Node* node = root;
 	for(const auto & c : word){
 		bool found = false;
@@ -32,12 +37,13 @@ void Trie::insert(const std::string & word){
 			}
 		}
 		if(!found){
-			Node* newNode = new Node(c, false);
+			Node* newNode = new Node(c);
 			node->children.push_back(newNode);
 			node = newNode;
 		}
 	}
-	node->isWord = true;
+
+	node->isWord.insert(id);
 }
 
 bool Trie::search(const std::string & word){
@@ -55,7 +61,29 @@ bool Trie::search(const std::string & word){
 			return false;
 		}
 	}
-	return node->isWord;
+	return true;
+}
+
+bool Trie::search(const std::string & word,std::vector<int> & result){
+	Node* node = root;
+	for(const auto & c : word){
+		bool found = false;
+		for(auto & child : node->children){
+			if(child->data == c){
+				node = child;
+				found = true;
+				break;
+			}
+		}
+		if(!found){
+			return false;
+		}
+	}
+
+	for(const auto & id : node->isWord){
+		result.push_back(id);
+	}
+	return true;
 }
 
 //// Trie Implementation End ////
@@ -66,46 +94,39 @@ bool Trie::search(const std::string & word){
 TrieEngine::TrieEngine(){
 }
 
-TrieEngine::TrieEngine(const int & size){
-	db.resize(size);
-}
-
 TrieEngine::~TrieEngine(){
 }
 
 void TrieEngine::insert(const int & id,const std::string & word){
-	if( id >= db.size() ){
-		db.resize(id+10);
-	}
-	db[id].insert(word);
+	db.insert(id,word);
 }
 
 bool TrieEngine::search(const std::vector<std::string> & search , std::vector<int> & result){
 	int k = search.size();
-    std::unordered_map<int,int> bucket;
+    std::map<int,int> bucket;
 
     for(const auto & word : search){
-		for(int i = 0 ; i < db.size() ; ++i){
-			if( db[i].search(word) ){
-				bucket[i]++;
-			}
+		std::vector<int> tmp;
+		db.search(word,tmp);
+		for(const auto & id : tmp){
+			bucket[id]++;
 		}
 	}
 
 
-    for(int i=1;i<=lineCount;i++){
-        if(bucket[i] == k){
-            result.push_back(i);
+    for(const auto & p : bucket){
+        if(p.second == k){
+            result.push_back(p.first);
         }
     }
+    
+    
+    if(result.empty() ){
+        result.push_back(-1);
+        return false;
+    }
 
-	if( result.empty() ){
-		result.push_back(-1);
-		return false;
-	}
-
-	sort(result.begin(),result.end());
-	return true;
+    return true;
 }
 
 //// TrieEngine Implementation End ////
