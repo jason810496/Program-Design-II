@@ -16,11 +16,14 @@ bool RbTreeEngine::search(const std::vector<std::string> & search , std::vector<
     
     std::map<int,double> id_idf_table;
     
+    // std::cout<<"-------------------"<<std::endl;
     for(const auto & word : search){
         auto range = db.equal_range(word);
         double cnt = db.count(word);
-        double idf = log10( (double)db.size() / (cnt) );
-
+        double idf = log10( (double)lineCount / (cnt) );
+        
+        // std::cout<<"lineCount:"<<lineCount<<std::endl;
+        // std::cout<<word<<' '<<cnt<<' '<<idf<<std::endl;
         int lastId = -1;
         for(auto it = range.first; it != range.second; ++it){
             if( it->second == lastId ){
@@ -31,20 +34,26 @@ bool RbTreeEngine::search(const std::vector<std::string> & search , std::vector<
         }
     }
 
-    std::priority_queue<std::pair<double,int>> pq;
+    // std::cout<<"--------\n";
+    // std::priority_queue<std::pair<double,int>,std::vector<std::pair<double,int>>,std::greater<std::pair<double,int>>> pq;
+    int idx=0;
+    std::vector<std::pair<int,double>> tmp((int)id_idf_table.size());
     for(const auto & id_idf : id_idf_table){
-        pq.push(std::pair<double,int>(id_idf.second,id_idf.first));
-        if( pq.size() > kTop ){
-            pq.pop();
+        tmp[idx++] = std::pair<int,double>(id_idf.first,id_idf.second);
+    }
+    std::sort(tmp.begin(),tmp.end(),[](const std::pair<double,int> & a,const std::pair<double,int> & b){
+        return a.second == b.second ? a.first<b.first: a.second > b.second;
+    });
+
+    for(int i=0;i<tmp.size() && i<kTop;++i){
+        if( std::abs(tmp[i].second) < 1e-6 ){
+            break;
         }
+        result.push_back(tmp[i].first);
     }
 
-    while( !pq.empty() ){
-        result.push_back(pq.top().second);
-        pq.pop();
-    }
-    while( result.size() < kTop ){
-        result.push_back(INT_MAX);
+    while(result.size() < kTop){
+        result.push_back(-1);
     }
 
     return true;

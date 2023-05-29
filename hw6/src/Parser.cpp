@@ -24,7 +24,7 @@ void Parser::readCorpus(const std::string & filename){
 
 	ifs.open(filename, std::ios::in);
 	if(ifs.is_open()){
-		lineCount = 1;	// init line count
+		lineCount = 0;	// init line count
 		std::string line;
 		while(getline(ifs, line)){
 
@@ -73,7 +73,7 @@ void Parser::readCorpus(const std::string & filename, BaseEngine* engine){
 
 	ifs.open(filename, std::ios::in);
 	if(ifs.is_open()){
-		lineCount = 1;	// init line count
+		lineCount = 0;	// init line count
 		std::string line;
 		while(getline(ifs, line)){
 
@@ -110,7 +110,7 @@ void Parser::readCorpus(const std::string & filename, BaseEngine* engine){
 				idx++;
 			}
 			engine->insert(id, tmp);
-
+			lineCount++;
 		}
 	}
 	ifs.close();
@@ -127,7 +127,8 @@ void Parser::answerQuery(const std::string & filename, BaseEngine* engine){
 
 	ifs.open(filename, std::ios::in);
 	if(ifs.is_open()){
-		lineCount = 1;	// init line count
+		
+		// std::cout<<"line count : "<<lineCount<<"\n";
 		std::string line;
 		while(getline(ifs, line)){
 			// new line parsed
@@ -141,11 +142,8 @@ void Parser::answerQuery(const std::string & filename, BaseEngine* engine){
 			// output
 			engine->search(query,answer);
 
-			sort(answer.begin(),answer.end());
-
-			std::cout<<(answer[0]==INT_MAX?-1:answer[0]);
-			for(int i=1;i<answer.size();i++){
-				std::cout<<' '<<(answer[i]==INT_MAX?-1:answer[i]);
+			for(int i=0;i<answer.size();++i){
+				std::cout<<answer[i]<<' ';
 			}
 			std::cout<<'\n';
 
