@@ -142,8 +142,9 @@ void Parser::answerQuery(const std::string & filename, BaseEngine* engine){
 			// output
 			engine->search(query,answer);
 
-			for(int i=0;i<answer.size();++i){
-				std::cout<<answer[i]<<' ';
+			std::cout<<answer[0];
+			for(int i=1;i<answer.size();++i){
+				std::cout<<' '<<answer[i];
 			}
 			std::cout<<'\n';
 
