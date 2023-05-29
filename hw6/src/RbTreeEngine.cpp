@@ -1,5 +1,6 @@
 #include "RbTreeEngine.h"
 #include<iostream>
+#include<algorithm>
 
 RbTreeEngine::RbTreeEngine(const int & k){
     kTop = k;
