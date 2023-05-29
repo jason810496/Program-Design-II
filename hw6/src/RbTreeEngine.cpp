@@ -17,7 +17,6 @@ bool RbTreeEngine::search(const std::vector<std::string> & search , std::vector<
     
     std::map<int,double> id_idf_table;
     
-    // std::cout<<"-------------------"<<std::endl;
     for(const auto & word : search){
         auto range = db.equal_range(word);
         int apperance = 0;
@@ -45,8 +44,6 @@ bool RbTreeEngine::search(const std::vector<std::string> & search , std::vector<
         }
     }
 
-    // std::cout<<"--------\n";
-    // std::priority_queue<std::pair<double,int>,std::vector<std::pair<double,int>>,std::greater<std::pair<double,int>>> pq;
     int idx=0;
     std::vector<std::pair<int,double>> tmp((int)id_idf_table.size());
     for(const auto & id_idf : id_idf_table){
@@ -56,11 +53,6 @@ bool RbTreeEngine::search(const std::vector<std::string> & search , std::vector<
         return a.second == b.second ? a.first<b.first: a.second > b.second;
     });
 
-    // std::cout<<"---DEBUG---\n";
-    // for(int i=0;i<tmp.size();i++){
-    //     std::cout<<tmp[i].first<<' '<<tmp[i].second<<std::endl;
-    // }
-    // std::cout<<"---DEBUG---\n";
 
     for(int i=0;i<tmp.size() && i<kTop;++i){
         if( std::abs(tmp[i].second) < 1e-6 ){
@@ -72,10 +64,6 @@ bool RbTreeEngine::search(const std::vector<std::string> & search , std::vector<
     while(result.size() < kTop){
         result.push_back(-1);
     }
-
-    // for(int i=0;i<result.size();++i){
-    //     std::cout<<result[i]<<' ';
-    // }
 
     return true;
 }
