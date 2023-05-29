@@ -9,7 +9,7 @@
 #include "BaseEngine.h"
 
 class Trie{
-	private:
+	public:
 		struct Node{
 			char data;
 			std::set<int> isWord;
@@ -19,12 +19,12 @@ class Trie{
 			~Node();
 		};
 		Node* root;
-	public:
 		Trie();
 		~Trie();
 		void insert(const int &id,const std::string & word);
 		bool search(const std::string & word);
 		bool search(const std::string & word,std::vector<int> & result);
+		Node* searchNode(const std::string & word);
 };
 
 class TrieEngine : public BaseEngine{

@@ -1,5 +1,5 @@
 #include "TrieEngine.h"
-
+#include<cmath>
 //// Trie Implementation ////
 
 Trie::Node::Node(char data, const int id){
@@ -86,6 +86,24 @@ bool Trie::search(const std::string & word,std::vector<int> & result){
 	return true;
 }
 
+Trie::Node* Trie::searchNode(const std::string & word){
+	Node* node = root;
+	for(const auto & c : word){
+		bool found = false;
+		for(auto & child : node->children){
+			if(child->data == c){
+				node = child;
+				found = true;
+				break;
+			}
+		}
+		if(!found){
+			return nullptr;
+		}
+	}
+	return node;
+}
+
 //// Trie Implementation End ////
 
 
@@ -103,28 +121,40 @@ void TrieEngine::insert(const int & id,const std::string & word){
 }
 
 bool TrieEngine::search(const std::vector<std::string> & search , std::vector<int> & result){
-	int k = search.size();
-    std::map<int,int> bucket;
-
-    for(const auto & word : search){
-		std::vector<int> tmp;
-		db.search(word,tmp);
-		for(const auto & id : tmp){
-			bucket[id]++;
+	std::map<int,double> id_idf_table;
+	
+	for(const auto & word : search){
+		int apperance = 0;
+		Trie::Node *node = db.searchNode(word);
+		if(node == nullptr){
+			continue;
+		}
+		double idf = log10( (double)lineCount / (double)node->isWord.size() );
+		
+		for(const auto & id : node->isWord){
+			id_idf_table[id]+= idf;
 		}
 	}
 
-
-    for(const auto & p : bucket){
-        if(p.second == k){
-            result.push_back(p.first);
-        }
+    int idx=0;
+    std::vector<std::pair<int,double>> tmp((int)id_idf_table.size());
+    for(const auto & id_idf : id_idf_table){
+        tmp[idx++] = std::pair<int,double>(id_idf.first,id_idf.second);
     }
-    
-    
-    if(result.empty() ){
+    std::sort(tmp.begin(),tmp.end(),[](const std::pair<int,double> & a,const std::pair<int,double> & b){
+        return a.second == b.second ? a.first<b.first: a.second > b.second;
+    });
+
+
+    for(int i=0;i<tmp.size() && i<kTop;++i){
+        if( std::abs(tmp[i].second) < 1e-6 ){
+            break;
+        }
+        result.push_back(tmp[i].first);
+    }
+
+    while(result.size() < kTop){
         result.push_back(-1);
-        return false;
     }
 
     return true;
