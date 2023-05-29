@@ -20,12 +20,22 @@ bool RbTreeEngine::search(const std::vector<std::string> & search , std::vector<
     // std::cout<<"-------------------"<<std::endl;
     for(const auto & word : search){
         auto range = db.equal_range(word);
-        double cnt = db.count(word);
-        double idf = log10( (double)lineCount / (cnt) );
+        int apperance = 0;
+
+        int lastId = -1;
+        for(auto it = range.first; it != range.second; ++it){
+            if( it->second == lastId ){
+                continue;
+            }
+            apperance++;
+            lastId = it->second;
+        }
+
+        double idf = log10( (double)lineCount / (double)apperance );
         
         // std::cout<<"lineCount:"<<lineCount<<std::endl;
         // std::cout<<word<<' '<<cnt<<' '<<idf<<std::endl;
-        int lastId = -1;
+        lastId = -1;
         for(auto it = range.first; it != range.second; ++it){
             if( it->second == lastId ){
                 continue;
@@ -42,9 +52,15 @@ bool RbTreeEngine::search(const std::vector<std::string> & search , std::vector<
     for(const auto & id_idf : id_idf_table){
         tmp[idx++] = std::pair<int,double>(id_idf.first,id_idf.second);
     }
-    std::sort(tmp.begin(),tmp.end(),[](const std::pair<double,int> & a,const std::pair<double,int> & b){
+    std::sort(tmp.begin(),tmp.end(),[](const std::pair<int,double> & a,const std::pair<int,double> & b){
         return a.second == b.second ? a.first<b.first: a.second > b.second;
     });
+
+    // std::cout<<"---DEBUG---\n";
+    // for(int i=0;i<tmp.size();i++){
+    //     std::cout<<tmp[i].first<<' '<<tmp[i].second<<std::endl;
+    // }
+    // std::cout<<"---DEBUG---\n";
 
     for(int i=0;i<tmp.size() && i<kTop;++i){
         if( std::abs(tmp[i].second) < 1e-6 ){
@@ -56,6 +72,10 @@ bool RbTreeEngine::search(const std::vector<std::string> & search , std::vector<
     while(result.size() < kTop){
         result.push_back(-1);
     }
+
+    // for(int i=0;i<result.size();++i){
+    //     std::cout<<result[i]<<' ';
+    // }
 
     return true;
 }
