@@ -1,6 +1,5 @@
 #include "Parser.h"
 #include<algorithm>
-
 Parser::Parser(){}
 
 Parser::~Parser(){}

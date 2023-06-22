@@ -6,3 +6,6 @@ This repository contains descriptions and solution of homework for the Program D
 - C++ programming language features and syntax
 - File input/output 
 - Object-oriented programming (OOP)
+
+## Important OOP Note
+- `protected`

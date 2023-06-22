@@ -1,5 +1,6 @@
 #include "TrieEngine.h"
 #include<cmath>
+#include<algorithm>
 //// Trie Implementation ////
 
 Trie::Node::Node(char data, const int id){

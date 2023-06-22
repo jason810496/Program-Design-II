@@ -15,7 +15,7 @@ make all
 for((i=1;i<=5;i++))
 do
     echo -e "$BICyan Start testing case $i $NC"
-    output=$(./hw5 "./test/corpus$i.txt" "./test/query$i.txt" | diff "./test/result$i.txt" -)
+    output=$(./hw6 "./test/corpus$i.txt" "./test/query$i.txt" | diff "./test/result$i.txt" -)
     if [ $? -eq 0 ]; then
         echo -e " $IGreen Case $i passed$NC"
     else

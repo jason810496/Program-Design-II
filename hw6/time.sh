@@ -17,5 +17,5 @@ make all
 for((i=1;i<=5;i++))
 do
     echo -e "$BICyan Start testing case $i $NC"
-    time ./hw5 "./test/corpus$i.txt" "./test/query$i.txt" | diff "./test/result$i.txt" -
+    time ./hw6 "./test/corpus$i.txt" "./test/query$i.txt" | diff "./test/result$i.txt" -
 done
