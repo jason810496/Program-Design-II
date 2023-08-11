@@ -17,12 +17,13 @@ void RbTreeEngine::insert(const int & id,const std::string & word){
 bool RbTreeEngine::search(const std::vector<std::string> & search , std::vector<int> & result){
     
     std::map<int,double> rank_table;
-    std::map<int,int> term_freq_table;
+    
     
     for(const auto & word : search){
         auto range = db.equal_range(word);
         int apperance = 0;
 
+        std::map<int,double> term_freq_table;
         int lastId = -1;
         for(auto it = range.first; it != range.second; ++it){
             term_freq_table[it->second]++;
@@ -46,8 +47,8 @@ bool RbTreeEngine::search(const std::vector<std::string> & search , std::vector<
                 continue;
             }
 
-            double new_tf =(double)term_freq_table[it->second]/(double)word_cnt_table[it->second];
-            rank_table[it->second]+= idf * new_tf;
+            double new_tf = (double)term_freq_table[it->second]/(double)word_cnt_table[it->second];
+            rank_table[it->second]+= new_tf * idf ;
 
             // std::cout<<"id:"<<it->second<<std::endl;
             // std::cout<<"word cnt:"<<word_cnt_table[it->second]<<std::endl;

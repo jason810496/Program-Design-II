@@ -8,11 +8,35 @@ SOURCES = $(wildcard $(SRCDIR)/*.cpp)
 OBJECTS = $(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 EXECUTABLE = hw7
 
+testall:
+	./hw7 test/testcase1/corpus1 test/testcase1/query1 1 > result/result1_1.txt
+	diff result/result1_1.txt test/testcase1/result_1
+	./hw7 test/testcase1/corpus1 test/testcase1/query1 2 > result/result1_2.txt
+	diff result/result1_2.txt test/testcase1/result_2
+	./hw7 test/testcase1/corpus1 test/testcase1/query1 3 > result/result1_3.txt
+	diff result/result1_3.txt test/testcase1/result_3
+	./hw7 test/testcase2/corpus2 test/testcase2/query2 1 > result/result2_1.txt
+	diff result/result2_1.txt test/testcase2/result_1
+	./hw7 test/testcase2/corpus2 test/testcase2/query2 2 > result/result2_2.txt
+	diff result/result2_2.txt test/testcase2/result_2
+	./hw7 test/testcase2/corpus2 test/testcase2/query2 3 > result/result2_3.txt
+	diff result/result2_3.txt test/testcase2/result_3
+	./hw7 test/testcase3/corpus3 test/testcase3/query3 1 > result/result3_1.txt
+	diff result/result3_1.txt test/testcase3/result_1
+	./hw7 test/testcase3/corpus3 test/testcase3/query3 2 > result/result3_2.txt
+	diff result/result3_2.txt test/testcase3/result_2
+	./hw7 test/testcase3/corpus3 test/testcase3/query3 3 > result/result3_3.txt
+	diff result/result3_3.txt test/testcase3/result_3
+
+
+owen:
+	$(CXX) $(CXXFLAGS) owen.cpp -o $(EXECUTABLE)
+
+# all:
+# 	$(CXX) $(CXXFLAGS) owen.cpp -o $(EXECUTABLE)
+
 all: main
 	$(CXX) $(CXXFLAGS) obj/HashEngine.o obj/Parser.o obj/RbTreeEngine.o obj/TrieEngine.o obj/SearchEngine.o obj/main.o -o $(EXECUTABLE)
-
-# all: main
-# 	$(CXX) $(CXXFLAGS) obj/Constant.o obj/BaseEngine.o obj/HashEngine.o obj/Parser.o obj/RbTreeEngine.o obj/TrieEngine.o obj/SearchEngine.o obj/main.o -o $(EXECUTABLE)
 
 main: search
 	$(CXX) $(CXXFLAGS) -c main.cpp -o $(OBJDIR)/main.o
